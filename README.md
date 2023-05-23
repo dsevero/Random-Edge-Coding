@@ -8,6 +8,10 @@ We present a one-shot method for compressing large labeled graphs called Random 
 </p>
 
 # How to use Random Edge Coding
+This example can be run in the following notebook: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dsevero/Random-Edge-Coding/blob/main/Random_Edge_Coding.ipynb).
+
+Alternatively, install dependencies with `./install_dependencies.sh`.
+Then, run the following code:
 ```python
 import craystack as cs
 import numpy as np
