@@ -17,7 +17,7 @@ class Graph:
 
     @property
     def sorted_edge_list(self):
-        return sorted(map(sorted, self.edge_list))
+        return sorted(map(sorted, self.edge_array))
 
     @property
     def degree_entropy(self):

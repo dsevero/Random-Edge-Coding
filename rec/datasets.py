@@ -42,6 +42,10 @@ def load_dataset(dataset_name: str, max_num_edges, seed=0) -> Graph:
         edge_list = load_network_repo_dataset(f"{rec_data_dir}/soc-digg.mtx")
     elif dataset_name == "gowalla":
         edge_list = load_SNAP_dataset(f"{rec_data_dir}/loc-gowalla_edges.txt")
+        # Has each undirected edge twice (fwd/bwd), deduplicate here:
+        num_edges = len(edge_list)
+        edge_list = list(set(map(tuple, map(sorted, edge_list))))
+        assert 2 * len(edge_list) == num_edges
     elif dataset_name == "skitter":
         edge_list = load_SNAP_dataset(f"{rec_data_dir}/as-skitter.txt")
     elif dataset_name == "dblp":
@@ -56,7 +60,8 @@ def load_dataset(dataset_name: str, max_num_edges, seed=0) -> Graph:
         edge_list = edge_list[:max_num_edges]
 
     print("Sorting edge list")
-    edge_list = sorted(map(sorted, edge_list))
+    edge_list = sorted(map(tuple, map(sorted, edge_list)))
+    assert len(set(edge_list)) == len(edge_list), "Duplicate edges found."
 
     print(f"Relabeling vertices...", flush=True)
     edge_array = relabel_vertices(edge_list)
